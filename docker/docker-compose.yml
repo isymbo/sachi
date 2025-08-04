@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  sachi:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - sachi_data:/app/data
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DATA_DIR=/app/data
+      - LOG_LEVEL=info
+    restart: unless-stopped
+
+volumes:
+  sachi_data:
