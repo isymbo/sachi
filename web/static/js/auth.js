@@ -179,7 +179,6 @@ if (loginForm) {
         const formData = new FormData(this);
         const email = formData.get('email');
         const password = formData.get('password');
-        const remember = formData.get('remember');
         
         // Basic validation
         if (!email || !password) {
@@ -197,27 +196,32 @@ if (loginForm) {
         submitButton.disabled = true;
         
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 2000));
+            const response = await fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
             
-            // Simulate successful login
-            if (window.SachiApp && window.SachiApp.showNotification) {
-                window.SachiApp.showNotification('Welcome back! Redirecting to dashboard...', 'success');
+            if (response.ok && data.success) {
+                if (window.SachiApp && window.SachiApp.showNotification) {
+                    window.SachiApp.showNotification('Login successful! Redirecting...', 'success');
+                }
+                setTimeout(() => {
+                    window.location.href = '/profile';
+                }, 500);
+            } else {
+                if (window.SachiApp && window.SachiApp.showNotification) {
+                    window.SachiApp.showNotification(data.message || 'Invalid email or password. Please try again.', 'error');
+                }
             }
-            
-            // Store remember me preference
-            if (remember) {
-                localStorage.setItem('rememberMe', 'true');
-            }
-            
-            // Simulate redirect to dashboard
-            setTimeout(() => {
-                window.location.href = '#dashboard'; // In real app, this would be the dashboard URL
-            }, 1500);
-            
         } catch (error) {
             if (window.SachiApp && window.SachiApp.showNotification) {
-                window.SachiApp.showNotification('Invalid email or password. Please try again.', 'error');
+                window.SachiApp.showNotification('Something went wrong. Please try again.', 'error');
             }
         } finally {
             submitButton.textContent = originalText;
@@ -233,32 +237,15 @@ if (registerForm) {
         e.preventDefault();
         
         const formData = new FormData(this);
-        const data = Object.fromEntries(formData);
+        const name = formData.get('name');
+        const email = formData.get('email');
+        const company = formData.get('company');
+        const password = formData.get('password');
         
-        // Validate required fields
-        const requiredFields = ['first_name', 'last_name', 'email', 'company', 'job_title', 'company_size', 'password'];
-        const missingFields = requiredFields.filter(field => !data[field]);
-        
-        if (missingFields.length > 0) {
+        // Basic validation
+        if (!name || !email || !password) {
             if (window.SachiApp && window.SachiApp.showNotification) {
                 window.SachiApp.showNotification('Please fill in all required fields.', 'error');
-            }
-            return;
-        }
-        
-        // Check if terms are agreed
-        if (!data.terms) {
-            if (window.SachiApp && window.SachiApp.showNotification) {
-                window.SachiApp.showNotification('Please agree to the Terms of Service and Privacy Policy.', 'error');
-            }
-            return;
-        }
-        
-        // Validate password requirements
-        const password = data.password;
-        if (password.length < 8 || !/[A-Z]/.test(password) || !/\d/.test(password)) {
-            if (window.SachiApp && window.SachiApp.showNotification) {
-                window.SachiApp.showNotification('Password must meet all requirements.', 'error');
             }
             return;
         }
@@ -271,19 +258,29 @@ if (registerForm) {
         submitButton.disabled = true;
         
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 3000));
+            const response = await fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: 'include',
+                body: JSON.stringify({ name, email, company, password })
+            });
+
+            const data = await response.json();
             
-            // Simulate successful registration
-            if (window.SachiApp && window.SachiApp.showNotification) {
-                window.SachiApp.showNotification('Account created successfully! Welcome to Sachi!', 'success');
+            if (response.ok && data.success) {
+                if (window.SachiApp && window.SachiApp.showNotification) {
+                    window.SachiApp.showNotification('Account created successfully! Redirecting to login...', 'success');
+                }
+                setTimeout(() => {
+                    window.location.href = '/login.html';
+                }, 1500);
+            } else {
+                if (window.SachiApp && window.SachiApp.showNotification) {
+                    window.SachiApp.showNotification(data.message || 'Something went wrong. Please try again.', 'error');
+                }
             }
-            
-            // Simulate redirect to onboarding or dashboard
-            setTimeout(() => {
-                window.location.href = '#onboarding'; // In real app, this would be the onboarding URL
-            }, 1500);
-            
         } catch (error) {
             if (window.SachiApp && window.SachiApp.showNotification) {
                 window.SachiApp.showNotification('Something went wrong. Please try again.', 'error');

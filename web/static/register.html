@@ -41,7 +41,7 @@
                         Get Started
                     </h1>
                     
-                    <form action="/api/register" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <form id="register-form" style="display: flex; flex-direction: column; gap: 1rem;">
                         <div>
                             <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Full Name</label>
                             <input type="text" id="name" name="name" required 
@@ -66,7 +66,7 @@
                                    style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
                         </div>
                         
-                        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; margin-top: 1rem;">
+                        <button type="submit" class="btn btn-primary auth-submit" style="width: 100%; justify-content: center; margin-top: 1rem;">
                             Create Account
                         </button>
                     </form>
@@ -80,5 +80,23 @@
     </section>
 
     <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Check if user is already logged in and redirect to profile
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const response = await fetch('/api/me', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    // User is already logged in, redirect to profile
+                    window.location.href = '/profile';
+                }
+            } catch (error) {
+                // User not logged in, stay on register page
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,5 +1,89 @@
 // Main JavaScript file for Sachi landing page
 
+// Initialize the Sachi app object
+window.SachiApp = {
+    showNotification: function(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.innerHTML = `
+            <div class="notification-content">
+                <span class="notification-message">${message}</span>
+                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
+            </div>
+        `;
+        
+        // Add styles if not already added
+        if (!document.querySelector('#notification-styles')) {
+            const styles = document.createElement('style');
+            styles.id = 'notification-styles';
+            styles.textContent = `
+                .notification {
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    z-index: 10000;
+                    padding: 1rem 1.5rem;
+                    border-radius: 0.5rem;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    max-width: 400px;
+                    animation: slideIn 0.3s ease-out;
+                }
+                .notification-success {
+                    background: #10b981;
+                    color: white;
+                }
+                .notification-error {
+                    background: #ef4444;
+                    color: white;
+                }
+                .notification-info {
+                    background: #3b82f6;
+                    color: white;
+                }
+                .notification-content {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 1rem;
+                }
+                .notification-close {
+                    background: none;
+                    border: none;
+                    color: white;
+                    font-size: 1.2rem;
+                    cursor: pointer;
+                    padding: 0;
+                    width: 20px;
+                    height: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(100%);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+            document.head.appendChild(styles);
+        }
+        
+        document.body.appendChild(notification);
+        
+        // Auto remove after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.remove();
+            }
+        }, 5000);
+    }
+};
+
 // Mobile navigation toggle
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.getElementById('nav-toggle');
