@@ -4,80 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Sachi AI Analytics Platform</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/basecoat.cdn.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/js/all.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/font/lucide.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <a href="index.html" class="logo">Sachi</a>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="product.html" class="nav-link">Product</a></li>
-                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="login.html" class="nav-link">Login</a></li>
-                    <li><a href="register.html" class="btn btn-primary">Get Started</a></li>
-                </ul>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="index.html" class="nav-brand">Sachi</a>
+            <div class="nav-menu">
+                <a href="product.html" class="nav-link">Product</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="login.html" class="nav-link">Login</a>
             </div>
         </div>
     </nav>
 
     <!-- Register Form -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content" style="justify-content: center;">
-                <div style="max-width: 400px; width: 100%; background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-lg);">
-                    <h1 class="hero-title" style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">
-                        Get Started
-                    </h1>
-                    
-                    <form id="register-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div>
-                            <label for="name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Full Name</label>
-                            <input type="text" id="name" name="name" required 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <div>
-                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
-                            <input type="email" id="email" name="email" required 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <div>
-                            <label for="company" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Company</label>
-                            <input type="text" id="company" name="company" 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <div>
-                            <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Password</label>
-                            <input type="password" id="password" name="password" required 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary auth-submit" style="width: 100%; justify-content: center; margin-top: 1rem;">
-                            Create Account
-                        </button>
-                    </form>
-                    
-                    <div style="text-align: center; margin-top: 1.5rem;">
-                        <p>Already have an account? <a href="login.html" style="color: var(--primary-color); text-decoration: none;">Sign in</a></p>
+    <div class="auth-container">
+        <div class="card auth-card">
+            <header class="auth-header">
+                <h2 class="auth-title">Create your account</h2>
+                <p class="auth-description">Get started with Sachi AI Analytics Platform</p>
+            </header>
+            <section>
+                <form id="register-form" class="form auth-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="name" class="label">Full Name</label>
+                        <input type="text" id="name" name="name" class="input" placeholder="Enter your full name" required>
                     </div>
+                    
+                    <div class="form-group">
+                        <label for="email" class="label">Email</label>
+                        <input type="email" id="email" name="email" class="input" placeholder="Enter your email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company" class="label">Company <span class="text-muted-foreground">(optional)</span></label>
+                        <input type="text" id="company" name="company" class="input" placeholder="Enter your company name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="label">Password</label>
+                        <input type="password" id="password" name="password" class="input" placeholder="Create a password" required>
+                    </div>
+                    
+                    <button type="submit" class="btn w-full">
+                        <i data-lucide="user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+                
+                <div class="auth-footer">
+                    Already have an account? <a href="login.html">Sign in</a>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </div>
 
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>
@@ -98,5 +87,7 @@
             }
         });
     </script>
+</body>
+</html>
 </body>
 </html>

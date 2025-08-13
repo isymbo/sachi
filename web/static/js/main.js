@@ -2,86 +2,54 @@
 
 // Initialize the Sachi app object
 window.SachiApp = {
-    showNotification: function(message, type = 'info') {
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-message">${message}</span>
-                <button class="notification-close" onclick="this.parentElement.parentElement.remove()">×</button>
-            </div>
-        `;
-        
-        // Add styles if not already added
-        if (!document.querySelector('#notification-styles')) {
-            const styles = document.createElement('style');
-            styles.id = 'notification-styles';
-            styles.textContent = `
-                .notification {
-                    position: fixed;
-                    top: 20px;
-                    right: 20px;
-                    z-index: 10000;
-                    padding: 1rem 1.5rem;
-                    border-radius: 0.5rem;
-                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-                    max-width: 400px;
-                    animation: slideIn 0.3s ease-out;
+        showNotification: function(message, type = 'info') {
+                // Ensure toaster container exists (Basecoat toast container)
+                let toaster = document.querySelector('.toaster');
+                if (!toaster) {
+                        toaster = document.createElement('div');
+                        toaster.className = 'toaster';
+                        toaster.setAttribute('data-align', 'end');
+                        document.body.appendChild(toaster);
                 }
-                .notification-success {
-                    background: #10b981;
-                    color: white;
-                }
-                .notification-error {
-                    background: #ef4444;
-                    color: white;
-                }
-                .notification-info {
-                    background: #3b82f6;
-                    color: white;
-                }
-                .notification-content {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 1rem;
-                }
-                .notification-close {
-                    background: none;
-                    border: none;
-                    color: white;
-                    font-size: 1.2rem;
-                    cursor: pointer;
-                    padding: 0;
-                    width: 20px;
-                    height: 20px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-                @keyframes slideIn {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-            `;
-            document.head.appendChild(styles);
+
+                // Create toast element per Basecoat structure
+                const toast = document.createElement('div');
+                toast.className = 'toast';
+                toast.setAttribute('role', 'status');
+                toast.setAttribute('aria-live', 'polite');
+
+                // Title by type
+                const title = type === 'success' ? 'Success'
+                                        : type === 'error' ? 'Error'
+                                        : type === 'warning' ? 'Warning' : 'Notice';
+
+                // Optional variant accent via inline border-left to hint type
+                const accent = type === 'success' ? '142.1 70.6% 45.3%'
+                                        : type === 'error' ? 'var(--destructive)'
+                                        : type === 'warning' ? '40 100% 50%'
+                                        : 'var(--ring)';
+
+                toast.innerHTML = `
+                    <div class="toast-content" style="border-left: 3px solid hsl(${accent});">
+                        <section>
+                            <h2>${title}</h2>
+                            <p>${message}</p>
+                        </section>
+                    </div>
+                `;
+
+                toaster.appendChild(toast);
+
+                // Auto-hide after 4 seconds
+                const hide = () => {
+                        if (!toast.isConnected) return;
+                        toast.setAttribute('aria-hidden', 'true');
+                        // Remove after transition
+                        setTimeout(() => toast.remove(), 350);
+                };
+
+                setTimeout(hide, 4000);
         }
-        
-        document.body.appendChild(notification);
-        
-        // Auto remove after 5 seconds
-        setTimeout(() => {
-            if (notification.parentElement) {
-                notification.remove();
-            }
-        }, 5000);
-    }
 };
 
 // Mobile navigation toggle

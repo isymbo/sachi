@@ -62,6 +62,11 @@ async function loadUserProfile() {
         document.getElementById('user-email').textContent = user.email;
         document.getElementById('user-company').textContent = user.company || 'No company specified';
 
+        // Update profile display section
+        document.getElementById('display-name').textContent = user.name;
+        document.getElementById('display-email').textContent = user.email;
+        document.getElementById('display-company').textContent = user.company || 'No company specified';
+
         // Generate avatar initials
         const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
         document.getElementById('avatar').textContent = initials;
@@ -83,25 +88,31 @@ async function loadUserProfile() {
 function initializeProfileHandlers() {
     // Edit profile button
     document.getElementById('edit-profile-btn').addEventListener('click', function() {
+        document.getElementById('profile-display').style.display = 'none';
         document.getElementById('edit-profile-form').style.display = 'block';
+        document.getElementById('password-display').style.display = 'block';
         document.getElementById('change-password-form').style.display = 'none';
     });
 
     // Change password button
     document.getElementById('change-password-btn').addEventListener('click', function() {
+        document.getElementById('password-display').style.display = 'none';
         document.getElementById('change-password-form').style.display = 'block';
+        document.getElementById('profile-display').style.display = 'block';
         document.getElementById('edit-profile-form').style.display = 'none';
     });
 
     // Cancel edit profile
     document.getElementById('cancel-edit-btn').addEventListener('click', function() {
         document.getElementById('edit-profile-form').style.display = 'none';
+        document.getElementById('profile-display').style.display = 'block';
         loadUserProfile(); // Reload original data
     });
 
     // Cancel change password
     document.getElementById('cancel-password-btn').addEventListener('click', function() {
         document.getElementById('change-password-form').style.display = 'none';
+        document.getElementById('password-display').style.display = 'block';
         document.getElementById('password-form').reset();
     });
 
@@ -154,6 +165,7 @@ async function handleProfileUpdate(e) {
                 window.SachiApp.showNotification('Profile updated successfully', 'success');
             }
             document.getElementById('edit-profile-form').style.display = 'none';
+            document.getElementById('profile-display').style.display = 'block';
             loadUserProfile(); // Reload updated data
         } else {
             if (window.SachiApp && window.SachiApp.showNotification) {
@@ -224,6 +236,7 @@ async function handlePasswordChange(e) {
                 window.SachiApp.showNotification('Password changed successfully', 'success');
             }
             document.getElementById('change-password-form').style.display = 'none';
+            document.getElementById('password-display').style.display = 'block';
             document.getElementById('password-form').reset();
         } else {
             if (window.SachiApp && window.SachiApp.showNotification) {

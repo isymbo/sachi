@@ -4,121 +4,136 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Sachi AI Analytics Platform</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/basecoat.cdn.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/js/all.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/font/lucide.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <a href="index.html" class="logo">Sachi</a>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="product.html" class="nav-link">Product</a></li>
-                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="profile.html" class="nav-link active">Profile</a></li>
-                    <li><a href="#" class="btn btn-primary" id="logout-btn">Logout</a></li>
-                </ul>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="index.html" class="nav-brand">Sachi</a>
+            <div class="nav-menu">
+                <a href="product.html" class="nav-link">Product</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="profile.html" class="nav-link active">Profile</a>
+                <button class="btn btn-sm btn-outline" id="logout-btn">Logout</button>
             </div>
         </div>
     </nav>
 
     <!-- Profile Content -->
-    <section class="hero" style="padding: 2rem 0;">
-        <div class="container">
-            <div class="hero-content" style="justify-content: center;">
-                <div style="max-width: 600px; width: 100%;">
-                    <!-- Profile Header -->
-                    <div style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-lg); margin-bottom: 2rem;">
-                        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
-                            <div style="width: 80px; height: 80px; background: var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem; font-weight: 600;" id="avatar">
-                                <!-- User initials will be displayed here -->
+    <div class="profile-container">
+        <div class="container profile-main">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="flex items-center space-y-0" style="gap: 1rem;">
+                    <div class="profile-avatar" id="avatar">
+                        <!-- User initials will be displayed here -->
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="user-name">Loading...</h1>
+                        <p id="user-email">Loading...</p>
+                        <p id="user-company" class="text-sm text-muted-foreground">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Content Grid -->
+            <div class="profile-content">
+                <!-- Edit Profile Section -->
+                <div class="profile-section">
+                    <h2>Profile Information</h2>
+                    <div id="profile-display">
+                        <div class="space-y-4">
+                            <div>
+                                <div class="label">Name</div>
+                                <div id="display-name" class="text-base">Loading...</div>
                             </div>
                             <div>
-                                <h1 id="user-name" style="margin: 0; font-size: 1.5rem; color: var(--text-primary);">Loading...</h1>
-                                <p id="user-email" style="margin: 0; color: var(--text-secondary);">Loading...</p>
-                                <p id="user-company" style="margin: 0; color: var(--text-light); font-size: 0.875rem;">Loading...</p>
+                                <div class="label">Email</div>
+                                <div id="display-email" class="text-base">Loading...</div>
+                            </div>
+                            <div>
+                                <div class="label">Company</div>
+                                <div id="display-company" class="text-base">Loading...</div>
                             </div>
                         </div>
-                        <div style="display: flex; gap: 1rem;">
-                            <button class="btn btn-primary" id="edit-profile-btn">
-                                <i class="fas fa-edit"></i> Edit Profile
-                            </button>
-                            <button class="btn" style="background: var(--background-secondary); color: var(--text-primary);" id="change-password-btn">
-                                <i class="fas fa-key"></i> Change Password
+                        <div class="mt-6">
+                            <button class="btn" id="edit-profile-btn">
+                                Edit Profile
                             </button>
                         </div>
                     </div>
 
                     <!-- Edit Profile Form (Hidden by default) -->
-                    <div id="edit-profile-form" style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-lg); margin-bottom: 2rem; display: none;">
-                        <h2 style="margin-bottom: 1.5rem;">Edit Profile</h2>
-                        <form id="profile-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div>
-                                <label for="edit-name" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Full Name</label>
-                                <input type="text" id="edit-name" name="name" required 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                    <div id="edit-profile-form" style="display: none;">
+                        <form id="profile-form" class="form space-y-4">
+                            <div class="form-group">
+                                <label for="edit-name" class="label">Full Name</label>
+                                <input type="text" id="edit-name" name="name" class="input" required>
                             </div>
                             
-                            <div>
-                                <label for="edit-email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
-                                <input type="email" id="edit-email" name="email" required 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                            <div class="form-group">
+                                <label for="edit-email" class="label">Email</label>
+                                <input type="email" id="edit-email" name="email" class="input" required>
                             </div>
                             
-                            <div>
-                                <label for="edit-company" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Company</label>
-                                <input type="text" id="edit-company" name="company" 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                            <div class="form-group">
+                                <label for="edit-company" class="label">Company</label>
+                                <input type="text" id="edit-company" name="company" class="input">
                             </div>
                             
-                            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                                <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <div class="flex" style="gap: 0.5rem;">
+                                <button type="submit" class="btn">
                                     Save Changes
                                 </button>
-                                <button type="button" class="btn" style="background: var(--background-secondary); color: var(--text-primary); flex: 1;" id="cancel-edit-btn">
+                                <button type="button" class="btn btn-outline" id="cancel-edit-btn">
                                     Cancel
                                 </button>
                             </div>
                         </form>
                     </div>
+                </div>
+
+                <!-- Change Password Section -->
+                <div class="profile-section">
+                    <h2>Security</h2>
+                    <div id="password-display">
+                        <p class="text-muted-foreground mb-4">Update your password to keep your account secure.</p>
+                        <button class="btn" id="change-password-btn">
+                            Change Password
+                        </button>
+                    </div>
 
                     <!-- Change Password Form (Hidden by default) -->
-                    <div id="change-password-form" style="background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-lg); display: none;">
-                        <h2 style="margin-bottom: 1.5rem;">Change Password</h2>
-                        <form id="password-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                            <div>
-                                <label for="current-password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Current Password</label>
-                                <input type="password" id="current-password" name="currentPassword" required 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                    <div id="change-password-form" style="display: none;">
+                        <form id="password-form" class="form space-y-4">
+                            <div class="form-group">
+                                <label for="current-password" class="label">Current Password</label>
+                                <input type="password" id="current-password" name="currentPassword" class="input" required>
                             </div>
                             
-                            <div>
-                                <label for="new-password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">New Password</label>
-                                <input type="password" id="new-password" name="newPassword" required 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                            <div class="form-group">
+                                <label for="new-password" class="label">New Password</label>
+                                <input type="password" id="new-password" name="newPassword" class="input" required>
                             </div>
                             
-                            <div>
-                                <label for="confirm-password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Confirm New Password</label>
-                                <input type="password" id="confirm-password" name="confirmPassword" required 
-                                       style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
+                            <div class="form-group">
+                                <label for="confirm-password" class="label">Confirm New Password</label>
+                                <input type="password" id="confirm-password" name="confirmPassword" class="input" required>
                             </div>
                             
-                            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                                <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            <div class="flex" style="gap: 0.5rem;">
+                                <button type="submit" class="btn">
                                     Change Password
                                 </button>
-                                <button type="button" class="btn" style="background: var(--background-secondary); color: var(--text-primary); flex: 1;" id="cancel-password-btn">
+                                <button type="button" class="btn btn-outline" id="cancel-password-btn">
                                     Cancel
                                 </button>
                             </div>
@@ -127,7 +142,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <script src="js/main.js?v=1"></script>
     <script src="js/auth.js?v=1"></script>

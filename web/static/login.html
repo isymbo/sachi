@@ -7,68 +7,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/basecoat.cdn.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/basecoat-css@0.3.1/dist/js/all.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/font/lucide.min.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">
-                <a href="index.html" class="logo">Sachi</a>
-            </div>
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="product.html" class="nav-link">Product</a></li>
-                    <li><a href="pricing.html" class="nav-link">Pricing</a></li>
-                    <li><a href="about.html" class="nav-link">About</a></li>
-                    <li><a href="login.html" class="nav-link active">Login</a></li>
-                    <li><a href="register.html" class="btn btn-primary">Get Started</a></li>
-                </ul>
-            </div>
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="index.html" class="nav-brand">Sachi</a>
+            <div class="nav-menu">
+                <a href="product.html" class="nav-link">Product</a>
+                <a href="pricing.html" class="nav-link">Pricing</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="register.html" class="btn btn-sm">Get Started</a>
             </div>
         </div>
     </nav>
 
     <!-- Login Form -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content" style="justify-content: center;">
-                <div style="max-width: 400px; width: 100%; background: white; padding: 2rem; border-radius: 1rem; box-shadow: var(--shadow-lg);">
-                    <h1 class="hero-title" style="text-align: center; margin-bottom: 2rem; font-size: 2rem;">
-                        Welcome Back
-                    </h1>
-                    
-                    <form id="login-form" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div>
-                            <label for="email" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Email</label>
-                            <input type="email" id="email" name="email" required 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <div>
-                            <label for="password" style="display: block; margin-bottom: 0.5rem; font-weight: 500;">Password</label>
-                            <input type="password" id="password" name="password" required 
-                                   style="width: 100%; padding: 0.75rem; border: 2px solid var(--border-color); border-radius: 0.5rem; font-size: 1rem;">
-                        </div>
-                        
-                        <button type="submit" class="btn btn-primary auth-submit" style="width: 100%; justify-content: center; margin-top: 1rem;">
-                            Sign In
-                        </button>
-                    </form>
-                    
-                    <div style="text-align: center; margin-top: 1.5rem;">
-                        <p>Don't have an account? <a href="register.html" style="color: var(--primary-color); text-decoration: none;">Sign up</a></p>
+    <div class="auth-container">
+        <div class="card auth-card">
+            <header class="auth-header">
+                <h2 class="auth-title">Login</h2>
+                <p class="auth-description">Enter your email below to login to your account</p>
+            </header>
+            <section>
+                <form id="login-form" class="form auth-form" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="email" class="label">Email</label>
+                        <input type="email" id="email" name="email" class="input" placeholder="m@example.com" required>
                     </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <label for="password" class="label" style="margin-bottom: 0;">Password</label>
+                            <a href="#" style="font-size: 0.875rem; color: oklch(var(--muted-foreground)); text-decoration: none;">
+                                Forgot your password?
+                            </a>
+                        </div>
+                        <input type="password" id="password" name="password" class="input" required>
+                    </div>
+                    
+                    <button type="submit" class="btn w-full">
+                        <i data-lucide="log-in"></i>
+                        Sign In
+                    </button>
+                </form>
+                
+                <div class="auth-footer">
+                    Don't have an account? <a href="register.html">Sign up</a>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </div>
 
     <script src="js/main.js"></script>
     <script src="js/auth.js"></script>

@@ -17,10 +17,12 @@ function initializePasswordToggle() {
             
             if (input.type === 'password') {
                 input.type = 'text';
-                icon.className = 'fas fa-eye-slash';
+                icon.setAttribute('data-lucide', 'eye-off');
+                lucide.createIcons();
             } else {
                 input.type = 'password';
-                icon.className = 'fas fa-eye';
+                icon.setAttribute('data-lucide', 'eye');
+                lucide.createIcons();
             }
         });
     });
@@ -43,10 +45,12 @@ function initializePasswordValidation() {
         if (requirements.length) {
             if (password.length >= 8) {
                 requirements.length.classList.add('valid');
-                requirements.length.querySelector('i').className = 'fas fa-check';
+                requirements.length.querySelector('i').setAttribute('data-lucide', 'check');
+                lucide.createIcons();
             } else {
                 requirements.length.classList.remove('valid');
-                requirements.length.querySelector('i').className = 'fas fa-times';
+                requirements.length.querySelector('i').setAttribute('data-lucide', 'x');
+                lucide.createIcons();
             }
         }
         
@@ -54,10 +58,12 @@ function initializePasswordValidation() {
         if (requirements.uppercase) {
             if (/[A-Z]/.test(password)) {
                 requirements.uppercase.classList.add('valid');
-                requirements.uppercase.querySelector('i').className = 'fas fa-check';
+                requirements.uppercase.querySelector('i').setAttribute('data-lucide', 'check');
+                lucide.createIcons();
             } else {
                 requirements.uppercase.classList.remove('valid');
-                requirements.uppercase.querySelector('i').className = 'fas fa-times';
+                requirements.uppercase.querySelector('i').setAttribute('data-lucide', 'x');
+                lucide.createIcons();
             }
         }
         
@@ -65,10 +71,12 @@ function initializePasswordValidation() {
         if (requirements.number) {
             if (/\d/.test(password)) {
                 requirements.number.classList.add('valid');
-                requirements.number.querySelector('i').className = 'fas fa-check';
+                requirements.number.querySelector('i').setAttribute('data-lucide', 'check');
+                lucide.createIcons();
             } else {
                 requirements.number.classList.remove('valid');
-                requirements.number.querySelector('i').className = 'fas fa-times';
+                requirements.number.querySelector('i').setAttribute('data-lucide', 'x');
+                lucide.createIcons();
             }
         }
     });
@@ -188,7 +196,7 @@ if (loginForm) {
             return;
         }
         
-        const submitButton = this.querySelector('.auth-submit');
+        const submitButton = this.querySelector('.btn');
         const originalText = submitButton.textContent;
         
         // Show loading state
@@ -250,7 +258,7 @@ if (registerForm) {
             return;
         }
         
-        const submitButton = this.querySelector('.auth-submit');
+        const submitButton = this.querySelector('.btn');
         const originalText = submitButton.textContent;
         
         // Show loading state
